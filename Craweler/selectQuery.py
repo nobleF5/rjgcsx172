@@ -42,7 +42,9 @@ class Query:
 
     def main(self):
         # majors = self.query_majors()
-        major = self.query_details()
+        majors_collection_db = MAJORS_COLLECTION_P
+        major = self.query_details(majors_collection_db)
+        print(major)
 if __name__ == '__main__':
     query = Query()
     query.main()
