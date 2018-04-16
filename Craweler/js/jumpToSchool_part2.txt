@@ -1,0 +1,13 @@
+]")
+ssdmOptions .attr("selected","selected");
+console.log(ssdmOptions .attr("selected"));
+
+var yjxkdm = $("#form2 select[name=yjxkdm]")
+var yjxkdmOptions = yjxkdm.find("option[value=0835]")
+yjxkdmOptions.attr("selected","selected");
+console.log(yjxkdmOptions.attr("selected"));
+
+var queryBt = $("td.text_center input");
+console.log(queryBt.attr("value"));
+
+queryBt.click();

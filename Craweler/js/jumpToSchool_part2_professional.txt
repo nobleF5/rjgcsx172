@@ -1,0 +1,27 @@
+]")
+ssdmOptions.attr("selected","selected");
+ssdmOptions.trigger('change');
+console.log(ssdmOptions .attr("selected"));
+
+var mldm = $("#form2 select[name=mldm]")
+var mldmOptions = mldm.find("option[value=zyxw]")
+mldmOptions.attr("selected","selected");
+mldmOptions.trigger('change');
+console.log(mldmOptions.attr("selected"));
+
+var yjxkdm = $("#form2 select[name=yjxkdm]")
+var yjxkdmOptions = yjxkdm.find("option[value=0852]")
+yjxkdmOptions.attr("selected","selected");
+yjxkdmOptions.trigger('change');
+console.log(yjxkdmOptions.attr("selected"));
+
+var zymc = $("#form2 select[name=zymc]")
+var zymcOptions = zymc.find("option[value='软件工程']")
+zymcOptions.attr("selected","selected");
+
+console.log(zymcOptions.attr("selected"));
+
+var queryBt = $("td.text_center input");
+console.log(queryBt.attr("value"));
+
+queryBt.click();
