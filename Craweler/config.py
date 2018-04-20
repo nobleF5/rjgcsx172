@@ -1,4 +1,4 @@
-MONGO_URL = 'localhost'
+MONGO_URL = '139.199.212.114'
 MONGO_DB = 'yanzhao'
 SCHOOLS_COLLECTION = 'schools'
 SCHOOLS_COLLECTION_P = 'schools_professional'
