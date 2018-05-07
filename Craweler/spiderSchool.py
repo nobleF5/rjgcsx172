@@ -1,10 +1,11 @@
 import pymongo
+import pymssql
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from pyquery import PyQuery as pq
 from bs4 import BeautifulSoup
-from Craweler.config import *
-from Craweler.query_shengfen import *
+from config import *
+from query_shengfen import *
 
 
 class SpiderSchool:
@@ -15,13 +16,15 @@ class SpiderSchool:
     # chrome_options.add_argument('--headless')
     # browser = webdriver.Chrome(chrome_options=chrome_options)
 
-    client = pymongo.MongoClient(MONGO_URL)
-    db = client[MONGO_DB]
+    conn=pymssql.connect(host= HOST,user= USER,password= PASSWORD
+                              ,database= DATABASE,charset= UTF8)
+    cursor = conn.cursor()
 
     def index_page(self,schoolCode,string3,db):
         """
-        抓取索引页
+            抓取索引页
         """
+
         try:
             url = 'http://yz.chsi.com.cn/zsml/zyfx_search.jsp'
             SpiderSchool.browser.get(url)
@@ -72,22 +75,23 @@ class SpiderSchool:
                     '_985': _985,
                     '_211': _211
                 }
+                
+                link = school['link']
+                sc = school['school']
+                local = school['local']
+                _985 = str(school['_985'])
+                _211 = str(school['_211'])
+                
+                "','"
+                cur_sql_users_value ="('" + link + "','" + sc + "','"+ local + "','"+ _985 + "','"+ _211 + "')"
+                cur_sql_users= "insert into " + db + "(link,school,local,_985,_211) values"  + cur_sql_users_value
+                print(cur_sql_users)
+                SpiderSchool.cursor.execute(cur_sql_users)
+                SpiderSchool.conn.commit()
                 print(school)
-                self.save_to_mongo(school,db)
 
         except TimeoutException:
             print("爬取院校失败")
-
-    def save_to_mongo(self,result,db):
-            """
-            保存至MongoDB
-            :param result: 结果
-            """
-            try:
-                if SpiderSchool.db[db].insert(result):
-                    print('存储到MongoDB成功')
-            except Exception:
-                print('存储到MongoDB失败')
 
 
     def main(self,mldm):
@@ -103,7 +107,7 @@ class SpiderSchool:
             filename_part2 = 'js/jumpToSchool_part2.txt'
             file_part2 = open(filename_part2, 'rb')
             string3 = file_part2.read().decode('utf-8')
-            db = 'schools'
+            db = SCHOOLS_COLLECTION
 
         # 爬取专硕信息
         if (mldm != 0):
@@ -124,6 +128,6 @@ class SpiderSchool:
 
 if __name__ == '__main__':
     spiderSchool = SpiderSchool()
-    # spiderSchool.main(0)# 爬取学硕信息
+    spiderSchool.main(0)# 爬取学硕信息
 
-    spiderSchool.main(1)# 爬取专硕信息
+#     spiderSchool.main(1)# 爬取专硕信息

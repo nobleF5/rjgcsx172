@@ -7,6 +7,11 @@ MAJORS_COLLECTION_P = 'majors_p'
 DETAILS_COLLECTION = 'details'
 DETAILS_COLLECTION_P = "details_p"
 
+HOST = '139.199.212.114'
+USER = 'spider'
+PASSWORD = '123456'
+DATABASE = 'yanzhao'
+UTF8 = 'utf8'
 #KEYWORD = ''
 
 MAX_PAGE = 100

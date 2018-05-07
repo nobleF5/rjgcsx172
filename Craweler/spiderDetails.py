@@ -2,9 +2,9 @@ import pymongo
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from pyquery import PyQuery as pq
-from Craweler.config import *
+from config import *
 from bs4 import BeautifulSoup
-from Craweler.selectQuery import *
+from selectQuery import *
 
 class SpiderDetails:
     DETAILS_COLLECTION = "details"
@@ -24,7 +24,7 @@ class SpiderDetails:
 
     def index_page(self,url,school,_985,_211,department,marjor,direction,detail_collection_save):
         """
-        抓取索引页
+        鎶撳彇绱㈠紩椤�
         """
         try:
             SpiderDetails.browser.get(url)
@@ -39,8 +39,8 @@ class SpiderDetails:
             zhaosheng_number = 0
             tuimian_number = 0
             if (len(number.split(',')) > 1):
-                zhaosheng_number = int(number.split(',')[0].split('：')[1])
-                tuimian_number = int(number.split(',')[1].split('：')[1])
+                zhaosheng_number = int(number.split(',')[0].split('锛�')[1])
+                tuimian_number = int(number.split(',')[1].split('锛�')[1])
 
             example_scope =  ''
             zsml_result = soup.select('.zsml-result')
@@ -51,7 +51,7 @@ class SpiderDetails:
                 for zsml_result_item_td in zsml_result_item_tds:
                     example_scope += zsml_result_item_td.get_text() + ','
 
-                example_scope = example_scope.replace('\n','').replace(' ','').replace('见招生简章','')
+                example_scope = example_scope.replace('\n','').replace(' ','').replace('瑙佹嫑鐢熺畝绔�','')
                 example_scope += ';'
             details = {
                 'school':school,
@@ -69,18 +69,18 @@ class SpiderDetails:
             self.save_to_mongo(details,detail_collection_save)
 
         except TimeoutException:
-            print("爬取院校失败")
+            print("鐖彇闄㈡牎澶辫触")
 
     def save_to_mongo(self,result,detail_collection):
             """
-            保存至MongoDB
-            :param result: 结果
+            淇濆瓨鑷矼ongoDB
+            :param result: 缁撴灉
             """
             try:
                 if SpiderDetails.db[detail_collection].insert(result):
-                    print('存储到MongoDB成功')
+                    print('瀛樺偍鍒癕ongoDB鎴愬姛')
             except Exception:
-                print('存储到MongoDB失败')
+                print('瀛樺偍鍒癕ongoDB澶辫触')
 
 
     def main(self,query_db_num,detail_collection_save):
@@ -105,16 +105,16 @@ class SpiderDetails:
 if __name__ == '__main__':
     spider = SpiderDetails()
 
-    #爬取学硕
-    # detail_collection_save = DETAILS_COLLECTION
-    # spider.main(0,detail_collection_save)
+    #鐖彇瀛︾
+    detail_collection_save = DETAILS_COLLECTION
+    spider.main(0,detail_collection_save)
 
-    #爬取专硕
-    detail_collection_save_p = DETAILS_COLLECTION_P
-    spider.main(1, detail_collection_save_p)
+    #鐖彇涓撶
+    # detail_collection_save_p = DETAILS_COLLECTION_P
+    # spider.main(1, detail_collection_save_p)
 
-    # number = '专业：12,其中推免：4'
-    # zhaosheng_number = number.split(',')[0].split('：')[1]
-    # tuimian_number = number.split(',')[1].split('：')[1]
+    # number = '涓撲笟锛�12,鍏朵腑鎺ㄥ厤锛�4'
+    # zhaosheng_number = number.split(',')[0].split('锛�')[1]
+    # tuimian_number = number.split(',')[1].split('锛�')[1]
     # print(zhaosheng_number)
     # print(tuimian_number)
