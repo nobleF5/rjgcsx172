@@ -15,8 +15,8 @@ class Query:
         
         cur_sql = 'SELECT * FROM '+schools_collection
         print(cur_sql)
-        cursor.execute(cur_sql)  #ִ��Sql���
-        schools = cursor.fetchall()  #������еĲ�ѯ���
+        cursor.execute(cur_sql)  
+        schools = cursor.fetchall() 
         for collection in schools:
             link_dic = {
                 'school':collection[1],
@@ -28,9 +28,6 @@ class Query:
             self.link_dics.append(link_dic)
  
         return  self.link_dics
-    
-    def query_ms_details(self,majors_collection_db):
-        pass
     
     def query_schools(self,schools_collection):
         client = pymongo.MongoClient(MONGO_URL)
@@ -78,6 +75,39 @@ class Query:
             print(details_dic)
         return  self.details_dics
     
+    def query_ms_majors(self,majors_collection_db):
+        conn=pymssql.connect(host= HOST,user= USER,password= PASSWORD
+                              ,database= DATABASE,charset= UTF8)
+        cursor = conn.cursor()
+        
+        cur_sql = 'SELECT * FROM '+ majors_collection_db
+        print(cur_sql)
+        cursor.execute(cur_sql)  
+        majors = cursor.fetchall() 
+#           SELECT TOP 1000 [id]
+#               ,[school]
+#               ,[_985]
+#               ,[_211]
+#               ,[department]
+#               ,[major]
+#               ,[direction]
+#               ,[details_link]
+#           FROM [yanzhao].[dbo].[majors]
+
+        for collection in majors:
+            link_dic = {
+                'school':collection[1],
+                '_985':collection[2],
+                '_211': collection[3],
+                'department':collection[4],
+                'major':collection[5],
+                'direction': collection[6],
+                'details_link': collection[7]
+            }
+            self.details_dics.append(link_dic)
+ 
+        return  self.details_dics
+    
     def main(self):
         # majors = self.query_majors()
 #         majors_collection_db = MAJORS_COLLECTION_P
@@ -91,5 +121,5 @@ if __name__ == '__main__':
 #     query.main()
 
     #查询招生详情数据
-    details_collection_db = DETAILS_COLLECTION
-    query.query_details(details_collection_db)
+    majors_collection_db = MAJORS_COLLECTION
+    print(query.query_ms_majors(majors_collection_db))
