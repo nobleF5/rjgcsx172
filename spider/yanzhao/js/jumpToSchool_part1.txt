@@ -1,0 +1,5 @@
+<!-- 跳转到学校列表 -->
+<!-- 11 beijin -->
+<!-- 36 jiangxi -->
+var ssdm = $("#form2 select[name=ssdm]")
+var ssdmOptions = ssdm.find("option[value=

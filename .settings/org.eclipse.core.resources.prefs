@@ -5,4 +5,5 @@ encoding//Craweler/spiderDetails.py=UTF-8
 encoding//Craweler/spiderMajor.py=UTF-8
 encoding//Craweler/spiderSchool.py=UTF-8
 encoding//data_transfer/mongo_mssql/query_from_mongodb.py=utf-8
+encoding//spider/yanzhao/selectQuery.py=utf-8
 encoding/<project>=UTF-8
