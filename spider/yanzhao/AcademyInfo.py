@@ -80,8 +80,8 @@ class AcademyInfo:
                 final_local_start = final_local.index(')')+1
                 
                 link = school['link']
-                aca_name = re.findall('\((.*?)\)', sc)[0]
-                aca_no = sc[aca_no_start:]
+                aca_no = re.findall('\((.*?)\)', sc)[0]
+                aca_name = sc[aca_no_start:]
                 local = final_local[final_local_start:]
                 _985 = str(school['_985'])
                 _211 = str(school['_211'])

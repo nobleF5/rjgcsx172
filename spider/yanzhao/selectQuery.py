@@ -54,6 +54,16 @@ class Query:
  
         return  self.details_dics
     
+    def query_acaIdByacaName(self, aca_name):
+        conn=pymssql.connect(host= HOST,user= USER,password= PASSWORD
+                              ,database= DATABASE,charset= UTF8)
+        cursor = conn.cursor()
+        cur_sql = "SELECT aca_no FROM "+ AcademyInfo_COLLECTION + " WHERE aca_name = '"+ aca_name+"'"
+        print(cur_sql)
+        cursor.execute(cur_sql)  
+        acaId = cursor.fetchone()
+        return acaId[0]
+    
     def main(self, major_type):
         # majors = self.query_majors()
 #         majors_collection_db = MAJORS_COLLECTION_P
@@ -71,7 +81,8 @@ class Query:
         
 if __name__ == '__main__':
     query = Query()
-    query.main(1)
+#     query.main(1)
+    print(query.query_acaIdByacaName('北京大学'))
 
     #查询招生详情数据
 #     majors_collection_db = MAJORS_COLLECTION

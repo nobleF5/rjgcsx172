@@ -1,0 +1,2 @@
+var tblMore = $(".tblMore a")
+tblMore.click()

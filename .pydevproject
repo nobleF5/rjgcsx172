@@ -6,5 +6,6 @@
 <path>/${PROJECT_DIR_NAME}/data_transfer</path>
 <path>/${PROJECT_DIR_NAME}/spider</path>
 <path>/${PROJECT_DIR_NAME}/config</path>
+<path>/${PROJECT_DIR_NAME}/test</path>
 </pydev_pathproperty>
 </pydev_project>
