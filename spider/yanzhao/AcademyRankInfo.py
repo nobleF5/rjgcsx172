@@ -51,7 +51,9 @@ class AcademyRankInfo:
             '''
                 预留30s管理员手动点击///无奈///
             '''
-            time.sleep(30)
+            print("请开始点击页面上的加载更多，90s内完成")
+            time.sleep(90)
+            print("数据抓取已经开始，请不要做其他操作")
             
             html = browser.page_source
             doc = pq(html)
@@ -65,7 +67,7 @@ class AcademyRankInfo:
                     aca_ranking = int(BeautifulSoup(str(tr), 'html.parser').select('.t1')[0].get_text())
                     aca_name = BeautifulSoup(str(tr), 'html.parser').select('.t2')[0].get_text()
                     query = Query()
-                    aca_id = query.query_acaIdByacaName(aca_name)
+                    aca_id = str(query.query_acaIdByacaName(aca_name))
                     cur_sql_academyRank_value ="('" + aca_id + "','" + aca_name + "','" + str(aca_ranking)+ "')"
                     cur_sql_academyRank = "insert into " + AcademyRankInfo.insert_db + "(aca_id,aca_name,aca_ranking) values"  + cur_sql_academyRank_value
                     print(cur_sql_academyRank)

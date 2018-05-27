@@ -58,7 +58,7 @@ class Query:
         conn=pymssql.connect(host= HOST,user= USER,password= PASSWORD
                               ,database= DATABASE,charset= UTF8)
         cursor = conn.cursor()
-        cur_sql = "SELECT aca_no FROM "+ AcademyInfo_COLLECTION + " WHERE aca_name = '"+ aca_name+"'"
+        cur_sql = "SELECT aca_id FROM "+ AcademyInfo_COLLECTION + " WHERE aca_name = '"+ aca_name+"'"
         print(cur_sql)
         cursor.execute(cur_sql)  
         acaId = cursor.fetchone()
